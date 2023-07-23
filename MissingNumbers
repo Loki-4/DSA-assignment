@@ -1,0 +1,35 @@
+package a;
+import java.util.List;
+import java.util.Scanner;
+
+public class MissingNumbers {
+    public static void main(String[] args) {
+    	Scanner sc=new Scanner(System.in);
+    	int n=sc.nextInt();
+    	int[] arrNum2=new int[10];
+        for(int i=0;i<n;i++) {
+        	arrNum2[i]=sc.nextInt();
+        }
+        List<Integer> missingNumbers2 = findMissingNumbers(arrNum2);
+        System.out.println("missing numbers: " + missingNumbers2);
+    }
+
+    public static List<Integer> findMissingNumbers(int[] arrNum2) {
+        List<Integer> missingNumbers = new ArrayList<>();
+        if (arrNum2 == null || arrNum2.length <= 1) {
+            return missingNumbers;
+        }
+
+        int expected = arrNum2[0] + 1;
+        for (int i = 1; i < arrNum2.length; i++) {
+            while (expected < arrNum2[i]) {
+                missingNumbers.add(expected);
+                expected++;
+            }
+            expected++;
+        }
+        return missingNumbers;
+    }
+}
+
+
