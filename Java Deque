@@ -1,0 +1,45 @@
+import java.util.*;
+    public class test {
+        public static int maxUniqueSubarrays(int[] arr, int M) {
+        int maxUnique = 0;
+        Set<Integer> uniqueElements = new HashSet<>();
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < M; i++) {
+            if (uniqueElements.add(arr[i])) {
+                maxUnique = Math.max(maxUnique, uniqueElements.size());
+            }
+            deque.addLast(arr[i]);
+        }
+
+        for (int i = M; i < arr.length; i++) {
+            int removedElement = deque.removeFirst();
+            if (!deque.contains(removedElement)) {
+                uniqueElements.remove(removedElement);
+            }
+
+            if (uniqueElements.add(arr[i])) {
+                maxUnique = Math.max(maxUnique, uniqueElements.size());
+            }
+            deque.addLast(arr[i]);
+        }
+
+        return maxUnique;
+    }
+        public static void main(String[] args) {
+            Scanner in = new Scanner(System.in);
+            Deque deque = new ArrayDeque<>();
+            int n = in.nextInt();
+            int m = in.nextInt();
+            
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
+               
+            }
+            in.close();
+
+        int result = maxUniqueSubarrays(arr, m);
+        System.out.println(result);
+        }
+    }
